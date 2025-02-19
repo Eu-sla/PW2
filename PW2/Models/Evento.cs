@@ -13,7 +13,10 @@ namespace PW2.Models
         public static List<Evento> GerarLista()
         {
             var lista = new List<Evento>();
-            lista.Add(new Evento() { Local = "Prefeitura", Data = 12 / 02 / 2026 - 16:00 }
+            lista.Add(new Evento() { Local = "Prefeitura", Data = new DateTime(2026,02,12,14,30,00) });
+            lista.Add(new Evento() { Local = "Escola", Data = new DateTime(2023,05,10,16,30,00) });
+            lista.Add(new Evento() { Local = "Prefeitura", Data = new DateTime(2026,02,12,14,30,00) });
+            return lista;
         }
     }
 }
