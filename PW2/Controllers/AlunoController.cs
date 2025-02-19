@@ -18,5 +18,9 @@ namespace PW2.Controllers
         {
             return View(Aluno.GerarLista());
         }
+        public ActionResult Exibir(int id)
+        {
+            return View(Aluno.GerarLista().ElementAt(id));
+        }
     }
 }
