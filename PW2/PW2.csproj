@@ -126,6 +126,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Aluno.cs" />
+    <Compile Include="Models\Carro.cs" />
+    <Compile Include="Models\Celular.cs" />
+    <Compile Include="Models\Evento.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -181,6 +184,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Aluno\Index.cshtml" />
     <Content Include="Views\Aluno\Listar.cshtml" />
+    <Content Include="Views\Aluno\Exibir.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
