@@ -19,5 +19,7 @@ namespace PW2.Controllers
         {
             return View(Celular.GerarLista());
         }
+
+
     }
 }
