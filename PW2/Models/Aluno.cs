@@ -11,14 +11,23 @@ namespace PW2.Models
         public string Nome { get; set; }
         public string RA { get; set; }
 
-        public static List<Aluno> GerarLista()
+
+        public static void GerarLista(HttpSessionStateBase session)
         {
+            if (session["ListaAluno"] != null)
+            {
+                if(((List<Aluno>)session["ListaAluno"]).Count > 0)
+                {
+                    return;
+                }
+            }
             var lista = new List<Aluno>();
             lista.Add(new Aluno { Nome = "Barbie", RA = "234567" });
             lista.Add(new Aluno { Nome = "sceds", RA = "325432" });
             lista.Add(new Aluno { Nome = "alfred", RA = "182732" });
 
-            return lista;
+            session.Remove("ListaAluno");
+            session.Add("ListaAluno", lista);
         }
     }
 }

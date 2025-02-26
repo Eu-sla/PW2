@@ -15,7 +15,7 @@ namespace PW2.Models
             var lista = new List<Evento>();
             lista.Add(new Evento() { Local = "Prefeitura", Data = new DateTime(2026,02,12,14,30,00) });
             lista.Add(new Evento() { Local = "Escola", Data = new DateTime(2023,05,10,16,30,00) });
-            lista.Add(new Evento() { Local = "Prefeitura", Data = new DateTime(2026,02,12,14,30,00) });
+            lista.Add(new Evento() { Local = "Prefeitura", Data = new DateTime(2026,09,11,13,00,00) });
             return lista;
         }
     }

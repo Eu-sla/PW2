@@ -16,11 +16,16 @@ namespace PW2.Controllers
         }
         public ActionResult Listar()
         {
-            return View(Aluno.GerarLista());
+            Aluno.GerarLista(Session);
+            return View(Session["ListaAluno"]as List<Aluno>);
         }
         public ActionResult Exibir(int id)
         {
-            return View(Aluno.GerarLista().ElementAt(id));
+            return View((Session["ListaAluno"] as List<Aluno>).ElementAt(id));
+        }
+        public ActionResult Delete(int id)
+        {
+            return View((Session["ListaAluno"] as List<Aluno>).ElementAt(id));
         }
     }
 }

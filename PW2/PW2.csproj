@@ -121,6 +121,9 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AlunoController.cs" />
+    <Compile Include="Controllers\CarroController.cs" />
+    <Compile Include="Controllers\CelularController.cs" />
+    <Compile Include="Controllers\EventosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -185,6 +188,10 @@
     <Content Include="Views\Aluno\Index.cshtml" />
     <Content Include="Views\Aluno\Listar.cshtml" />
     <Content Include="Views\Aluno\Exibir.cshtml" />
+    <Content Include="Views\Carro\Listar.cshtml" />
+    <Content Include="Views\Celular\Listar.cshtml" />
+    <Content Include="Views\Eventos\Listar.cshtml" />
+    <Content Include="Views\Aluno\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
