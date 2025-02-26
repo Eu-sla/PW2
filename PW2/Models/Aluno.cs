@@ -17,7 +17,6 @@ namespace PW2.Models
             lista.Add(new Aluno { Nome = "Barbie", RA = "234567" });
             lista.Add(new Aluno { Nome = "sceds", RA = "325432" });
             lista.Add(new Aluno { Nome = "alfred", RA = "182732" });
-
             return lista;
         }
     }
