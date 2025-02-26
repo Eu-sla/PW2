@@ -1,4 +1,4 @@
-﻿@model PW2.Models.Aluno
+﻿@model PW2.Models.Evento
 
 @{
     ViewBag.Title = "Exibir";
@@ -7,23 +7,23 @@
 <h2>Exibir</h2>
 
 <div>
-    <h4>Aluno</h4>
+    <h4>Evento</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Nome)
+            @Html.DisplayNameFor(model => model.Local)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Nome)
+            @Html.DisplayFor(model => model.Local)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.RA)
+            @Html.DisplayNameFor(model => model.Data)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.RA)
+            @Html.DisplayFor(model => model.Data)
         </dd>
 
     </dl>

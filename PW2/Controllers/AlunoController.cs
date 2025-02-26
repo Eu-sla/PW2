@@ -27,5 +27,19 @@ namespace PW2.Controllers
         {
             return View((Session["ListaAluno"] as List<Aluno>).ElementAt(id));
         }
+        public ActionResult Create()
+        {
+            return View(new Aluno());
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(Aluno aluno)
+        {
+            aluno.Adicionar(Session);
+
+            return RedirectToAction("Listar");
+        }
     }
+
 }

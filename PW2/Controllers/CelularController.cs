@@ -19,7 +19,10 @@ namespace PW2.Controllers
         {
             return View(Celular.GerarLista());
         }
-
+        public ActionResult Exibir(int id)
+        {
+            return View(Celular.GerarLista().ElementAt(id));
+        }
 
     }
 }

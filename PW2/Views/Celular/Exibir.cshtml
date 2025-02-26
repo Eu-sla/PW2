@@ -1,0 +1,42 @@
+﻿@model PW2.Models.Celular
+
+@{
+    ViewBag.Title = "Exibir";
+}
+
+<h2>Exibir</h2>
+
+<div>
+    <h4>Celular</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Numero)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Numero)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Marca)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Marca)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Novo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Novo)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Voltar", "Listar")
+</p>

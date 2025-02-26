@@ -29,5 +29,12 @@ namespace PW2.Models
             session.Remove("ListaAluno");
             session.Add("ListaAluno", lista);
         }
+        public void Adicionar(HttpSessionStateBase session)
+        {
+            if (session["ListaAluno"] != null)
+            {
+                (session["ListaAluno"] as List<Aluno>).Add(this);
+            }
+        }
     }
 }

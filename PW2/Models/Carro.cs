@@ -21,5 +21,30 @@ namespace PW2.Models
 
             return carro;
         }
+
+        public static void GerarLista(HttpSessionStateBase session)
+        {
+            if (session["ListaCarro"] != null)
+            {
+                if (((List<Carro>)session["ListaCarro"]).Count > 0)
+                {
+                    return;
+                }
+            }
+            var lista = new List<Aluno>();
+            lista.Add(new Aluno { Nome = "Barbie", RA = "234567" });
+            lista.Add(new Aluno { Nome = "sceds", RA = "325432" });
+            lista.Add(new Aluno { Nome = "alfred", RA = "182732" });
+
+            session.Remove("ListaCarro");
+            session.Add("ListaCarro", lista);
+        }
+        public void Adicionar(HttpSessionStateBase session)
+        {
+            if (session["ListaCarro"] != null)
+            {
+                (session["ListaCarro"] as List<Carro>).Add(this);
+            }
+        }
     }
 }
