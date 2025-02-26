@@ -188,12 +188,12 @@
     <Content Include="Views\Aluno\Index.cshtml" />
     <Content Include="Views\Aluno\Listar.cshtml" />
     <Content Include="Views\Aluno\Exibir.cshtml" />
+    <Content Include="Views\Carro\Listar.cshtml" />
+    <Content Include="Views\Celular\Listar.cshtml" />
+    <Content Include="Views\Eventos\Listar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Carro\" />
-    <Folder Include="Views\Celular\" />
-    <Folder Include="Views\Eventos\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />
