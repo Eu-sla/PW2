@@ -36,5 +36,29 @@ namespace PW2.Models
                 (session["ListaAluno"] as List<Aluno>).Add(this);
             }
         }
+        public static Aluno Procurar(HttpSessionStateBase session, int id)
+        {
+            if (session["ListaAluno"] != null)
+            {
+                return (session["ListaAluno"] as List<Aluno>).ElementAt(id);
+            }
+            return null;
+        }
+        public void Excluir(HttpSessionStateBase session)
+        {
+            if (session["ListaAluno"] != null)
+            {
+                (session["ListaAluno"] as List<Aluno>).Remove(this);
+            }
+        }
+        public void Editar(HttpSessionStateBase session, int id)
+        {
+            if (session["ListaAluno"] != null)
+            {
+                (session["ListaAluno"] as List<Aluno>).RemoveAt(id);
+                (session["ListaAluno"] as List<Aluno>).Insert(id, this);
+            }
+        }
+        
     }
 }
