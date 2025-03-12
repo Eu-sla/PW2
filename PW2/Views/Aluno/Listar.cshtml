@@ -9,7 +9,7 @@
 <p>
     @Html.ActionLink("Cadastrar Novo", "Create")
 </p>
-<table class="table">
+<table class="table table-striped">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Nome)
@@ -29,7 +29,7 @@
             @Html.DisplayFor(modelItem => item.RA)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Edit", "Editar", new { id = Model.ToList<PW2.Models.Aluno>().IndexOf(item) }) |
             @Html.ActionLink("Exibir Detalhes", "Exibir", new {  id= Model.ToList<PW2.Models.Aluno>().IndexOf(item) }) |
             @Html.ActionLink("Excluir", "Delete", new { id = Model.ToList<PW2.Models.Aluno>().IndexOf(item)  })
         </td>

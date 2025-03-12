@@ -40,15 +40,20 @@ namespace PW2.Controllers
         }
 
 
-
+        public ActionResult Editar(int id)
+        {
+            
+            return View(Aluno.Procurar(Session, id));
+        }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Editar(int id, Aluno aluno)
         {
-            aluno.Excluir(Session);
+            aluno.Editar(Session, id);
 
             return RedirectToAction("Listar");
         }
+
         public ActionResult Create()
         {
             return View(new Aluno());

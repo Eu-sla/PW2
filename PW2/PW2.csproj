@@ -194,6 +194,7 @@
     <Content Include="Views\Carro\Exibir.cshtml" />
     <Content Include="Views\Celular\Exibir.cshtml" />
     <Content Include="Views\Eventos\Exibir.cshtml" />
+    <Content Include="Views\Aluno\Editar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -55,8 +55,9 @@ namespace PW2.Models
         {
             if (session["ListaAluno"] != null)
             {
-                (session["ListaAluno"] as List<Aluno>).RemoveAt(id);
-                (session["ListaAluno"] as List<Aluno>).Insert(id, this);
+                var aluno = Aluno.Procurar(session, id);
+                aluno.Nome = this.Nome;
+                aluno.RA = this.RA;
             }
         }
         
