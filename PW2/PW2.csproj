@@ -168,8 +168,6 @@
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -192,6 +190,10 @@
     <Content Include="Views\Celular\Listar.cshtml" />
     <Content Include="Views\Eventos\Listar.cshtml" />
     <Content Include="Views\Aluno\Delete.cshtml" />
+    <Content Include="Views\Aluno\Create.cshtml" />
+    <Content Include="Views\Carro\Exibir.cshtml" />
+    <Content Include="Views\Celular\Exibir.cshtml" />
+    <Content Include="Views\Eventos\Exibir.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -23,5 +23,18 @@ namespace PW2.Controllers
         {
             return View(Carro.GerarLista().ElementAt(id));
         }
+        public ActionResult Create()
+        {
+            return View(new Carro());
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(Carro carro)
+        {
+            carro.Adicionar(Session);
+
+            return RedirectToAction("Listar");
+        }
     }
 }
