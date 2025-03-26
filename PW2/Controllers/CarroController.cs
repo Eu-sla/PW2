@@ -17,17 +17,48 @@ namespace PW2.Controllers
 
         public ActionResult Listar()
         {
-            return View(Carro.GerarLista());
+            Carro.GerarLista(Session);
+            return View(Session["ListaCarro"] as List<Carro>);
         }
         public ActionResult Exibir(int id)
         {
-            return View(Carro.GerarLista().ElementAt(id));
+            return View((Session["ListaCarro"] as List<Carro>).ElementAt(id));
         }
+
+
+
+        public ActionResult Delete(int id)
+        {
+            return View((Session["ListaCarro"] as List<Carro>).ElementAt(id));
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(int id, Carro carro)
+        {
+            Carro.Procurar(Session, id)?.Excluir(Session); 
+
+            return RedirectToAction("Listar");
+        }
+
+
+        public ActionResult Editar(int id)
+        {
+
+            return View(Carro.Procurar(Session, id));
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Editar(int id, Carro carro)
+        {
+            carro.Editar(Session, id);
+
+            return RedirectToAction("Listar");
+        }
+
         public ActionResult Create()
         {
             return View(new Carro());
         }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(Carro carro)

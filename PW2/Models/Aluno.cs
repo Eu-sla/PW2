@@ -18,7 +18,8 @@ namespace PW2.Models
             {
                 if(((List<Aluno>)session["ListaAluno"]).Count > 0)
                 {
-                    return;
+                    return; 
+
                 }
             }
             var lista = new List<Aluno>();

@@ -195,6 +195,15 @@
     <Content Include="Views\Celular\Exibir.cshtml" />
     <Content Include="Views\Eventos\Exibir.cshtml" />
     <Content Include="Views\Aluno\Editar.cshtml" />
+    <Content Include="Views\Carro\Create.cshtml" />
+    <Content Include="Views\Carro\Delete.cshtml" />
+    <Content Include="Views\Carro\Editar.cshtml" />
+    <Content Include="Views\Celular\Create.cshtml" />
+    <Content Include="Views\Celular\Editar.cshtml" />
+    <Content Include="Views\Celular\Delete.cshtml" />
+    <Content Include="Views\Eventos\Delete.cshtml" />
+    <Content Include="Views\Eventos\Editar.cshtml" />
+    <Content Include="Views\Eventos\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
