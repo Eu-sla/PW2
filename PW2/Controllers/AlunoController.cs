@@ -66,6 +66,13 @@ namespace PW2.Controllers
 
             return RedirectToAction("Listar");
         }
+
+        public ActionResult BaixarPdf()
+        {
+            string caminho = Server.MapPath("~/listaAlunos.pdf");
+            Aluno.GerarPdf(Session, caminho);
+            return File(caminho, "application/pdf", "ListaAlunos.pdf");
+        }
     }
 
 }

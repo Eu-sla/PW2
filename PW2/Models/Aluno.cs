@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using iText.Kernel.Pdf;
+using iText.Layout;
+using iText.Layout.Element;
+using System.IO;
 using System.Web;
 
 namespace PW2.Models
@@ -61,6 +65,28 @@ namespace PW2.Models
                 aluno.RA = this.RA;
             }
         }
-        
+
+        public static void GerarPdf(HttpSessionStateBase session, string caminho)
+        {
+            var lista = session["ListaAluno"] as List<Aluno>;
+            if (lista == null || lista.Count == 0)
+                return;
+
+            using (var writer = new PdfWriter(caminho))
+            {
+                var pdf = new PdfDocument(writer);
+                var document = new Document(pdf); // <- NÃO precisa setar fonte aqui
+
+                document.Add(new Paragraph("Lista de Alunos"));
+
+                foreach (var aluno in lista)
+                {
+                    document.Add(new Paragraph($"Nome: {aluno.Nome} | RA: {aluno.RA}"));
+                }
+
+                document.Close(); // <- fecha tudo corretamente
+            }
+        }
+
     }
 }
