@@ -18,6 +18,9 @@
         <th>
             @Html.DisplayNameFor(model => model.RA)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataNasc)
+        </th>
         <th></th>
     </tr>
 
@@ -28,6 +31,9 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.RA)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DataNasc)
         </td>
         <td>
             @Html.ActionLink("Editar", "Editar", new { id = Model.ToList<PW2.Models.Aluno>().IndexOf(item) }) |

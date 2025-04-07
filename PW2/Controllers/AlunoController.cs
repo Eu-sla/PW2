@@ -4,6 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using PW2.Models;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using System.IO;
 
 namespace PW2.Controllers
 {
@@ -67,11 +70,46 @@ namespace PW2.Controllers
             return RedirectToAction("Listar");
         }
 
-        public ActionResult BaixarPdf()
+
+        public FileResult BaixarPdf()
         {
-            string caminho = Server.MapPath("~/listaAlunos.pdf");
-            Aluno.GerarPdf(Session, caminho);
-            return File(caminho, "application/pdf", "ListaAlunos.pdf");
+            var lista = Session["ListaAluno"] as List<Aluno>;
+            if (lista == null || lista.Count == 0)
+            {
+                return null; 
+            }
+
+            using (MemoryStream ms = new MemoryStream())
+            {
+                Document doc = new Document(PageSize.A4, 25, 25, 30, 30);
+                PdfWriter writer = PdfWriter.GetInstance(doc, ms);
+                doc.Open();
+
+                var titulo = new Paragraph("Lista de Alunos", FontFactory.GetFont("Arial", 18, Font.BOLD));
+                titulo.Alignment = Element.ALIGN_CENTER;
+                doc.Add(titulo);
+                doc.Add(new Paragraph(" ")); 
+
+                PdfPTable table = new PdfPTable(3); 
+                table.WidthPercentage = 100;
+                table.SetWidths(new float[] { 2f, 1f, 1f });
+
+                table.AddCell(new Phrase("Nome", FontFactory.GetFont("Arial", 12, Font.BOLD)));
+                table.AddCell(new Phrase("RA", FontFactory.GetFont("Arial", 12, Font.BOLD)));
+                table.AddCell(new Phrase("Data de Nascimento", FontFactory.GetFont("Arial", 12, Font.BOLD)));
+
+                foreach (var aluno in lista)
+                {
+                    table.AddCell(aluno.Nome);
+                    table.AddCell(aluno.RA);
+                    table.AddCell(aluno.DataNasc.ToString());
+                }
+
+                doc.Add(table);
+                doc.Close();
+
+                return File(ms.ToArray(), "application/pdf", "ListaAlunos.pdf");
+            }
         }
     }
 
