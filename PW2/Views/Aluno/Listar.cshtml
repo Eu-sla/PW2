@@ -33,7 +33,7 @@
             @Html.DisplayFor(modelItem => item.RA)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.DataNasc)
+            @item.DataNasc.ToString("dd/MM/yyyy")
         </td>
         <td>
             @Html.ActionLink("Editar", "Editar", new { id = Model.ToList<PW2.Models.Aluno>().IndexOf(item) }) |

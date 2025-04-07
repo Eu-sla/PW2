@@ -102,7 +102,7 @@ namespace PW2.Controllers
                 {
                     table.AddCell(aluno.Nome);
                     table.AddCell(aluno.RA);
-                    table.AddCell(aluno.DataNasc.ToString());
+                    table.AddCell(aluno.DataNasc.ToString("dd/MM/yyyy"));
                 }
 
                 doc.Add(table);
