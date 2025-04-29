@@ -16,7 +16,6 @@ namespace PW2.Controllers
         // GET: Aluno
         static AlunoController()
         {
-            // Defina a licença correta. Aqui é para uso comercial
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
         }
         public ActionResult Index()
@@ -30,14 +29,24 @@ namespace PW2.Controllers
         }
         public ActionResult Exibir(int id)
         {
-            return View((Session["ListaAluno"] as List<Aluno>).ElementAt(id));
+            var aluno = Aluno.Procurar(Session, id);
+            if (aluno == null)
+            {
+                return HttpNotFound();
+            }
+            return View(aluno);
         }
 
 
 
         public ActionResult Delete(int id)
         {
-            return View((Session["ListaAluno"] as List<Aluno>).ElementAt(id));
+            var aluno = Aluno.Procurar(Session, id);
+            if (aluno == null)
+            {
+                return HttpNotFound();
+            }
+            return View(aluno);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -85,13 +94,12 @@ namespace PW2.Controllers
             return View(aluno);
         }
 
-
         public FileResult BaixarPdf()
         {
             var lista = Session["ListaAluno"] as List<Aluno>;
             if (lista == null || lista.Count == 0)
             {
-                return null; 
+                return null;
             }
 
             using (MemoryStream ms = new MemoryStream())
@@ -100,24 +108,52 @@ namespace PW2.Controllers
                 PdfWriter writer = PdfWriter.GetInstance(doc, ms);
                 doc.Open();
 
-                var titulo = new Paragraph("Lista de Alunos", FontFactory.GetFont("Arial", 18, Font.BOLD));
+                var corTitulo = new BaseColor(214, 92, 116);
+                var corCabecalho = new BaseColor(245, 138, 110);
+                var corComplementar = new BaseColor(0, 0, 0); 
+
+                var fonteTitulo = FontFactory.GetFont("Arial", 18, Font.BOLD, corTitulo);
+                var fonteCabecalho = FontFactory.GetFont("Arial", 12, Font.BOLD, BaseColor.BLACK);
+                var fonteNormal = FontFactory.GetFont("Arial", 12, Font.NORMAL, BaseColor.BLACK);
+
+                var titulo = new Paragraph("Lista de Alunos", fonteTitulo);
                 titulo.Alignment = Element.ALIGN_CENTER;
                 doc.Add(titulo);
-                doc.Add(new Paragraph(" ")); 
+                doc.Add(new Paragraph(" "));
 
-                PdfPTable table = new PdfPTable(3); 
+                PdfPTable table = new PdfPTable(3);
                 table.WidthPercentage = 100;
-                table.SetWidths(new float[] { 2f, 1f, 1f });
+                table.SetWidths(new float[] { 2f, 1f, 1.5f });
 
-                table.AddCell(new Phrase("Nome", FontFactory.GetFont("Arial", 12, Font.BOLD)));
-                table.AddCell(new Phrase("RA", FontFactory.GetFont("Arial", 12, Font.BOLD)));
-                table.AddCell(new Phrase("Data de Nascimento", FontFactory.GetFont("Arial", 12, Font.BOLD)));
+                var cabecalho1 = new PdfPCell(new Phrase("Nome", fonteCabecalho));
+                var cabecalho2 = new PdfPCell(new Phrase("RA", fonteCabecalho));
+                var cabecalho3 = new PdfPCell(new Phrase("Data de Nascimento", fonteCabecalho));
+
+                foreach (var cell in new[] { cabecalho1, cabecalho2, cabecalho3 })
+                {
+                    cell.BackgroundColor = corCabecalho;
+                    cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                    cell.Padding = 5;
+                }
+
+                table.AddCell(cabecalho1);
+                table.AddCell(cabecalho2);
+                table.AddCell(cabecalho3);
 
                 foreach (var aluno in lista)
                 {
-                    table.AddCell(aluno.Nome);
-                    table.AddCell(aluno.RA);
-                    table.AddCell(aluno.DataNasc.ToString("dd/MM/yyyy"));
+                    var cellNome = new PdfPCell(new Phrase(aluno.Nome, fonteNormal));
+                    cellNome.Padding = 5;
+
+                    var cellRA = new PdfPCell(new Phrase(aluno.RA, fonteNormal));
+                    cellRA.Padding = 5;
+
+                    var cellDataNasc = new PdfPCell(new Phrase(aluno.DataNasc.ToString("dd/MM/yyyy"), fonteNormal));
+                    cellDataNasc.Padding = 5;
+
+                    table.AddCell(cellNome);
+                    table.AddCell(cellRA);
+                    table.AddCell(cellDataNasc);
                 }
 
                 doc.Add(table);
@@ -129,7 +165,6 @@ namespace PW2.Controllers
 
         public ActionResult ExportarExcel()
         {
-
             var alunos = (List<Aluno>)Session["ListaAluno"];
 
             if (alunos == null || alunos.Count == 0)
@@ -145,6 +180,15 @@ namespace PW2.Controllers
                 planilha.Cells[1, 2].Value = "RA";
                 planilha.Cells[1, 3].Value = "Data de Nascimento";
 
+                using (var range = planilha.Cells["A1:C1"])
+                {
+                    range.Style.Font.Bold = true;
+                    range.Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                    range.Style.Fill.BackgroundColor.SetColor(System.Drawing.ColorTranslator.FromHtml("#f58a6e")); // Amarelo claro
+                    range.Style.Font.Color.SetColor(System.Drawing.Color.Black);
+                    range.Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                }
+
                 for (int i = 0; i < alunos.Count; i++)
                 {
                     planilha.Cells[i + 2, 1].Value = alunos[i].Nome;
@@ -152,11 +196,15 @@ namespace PW2.Controllers
                     planilha.Cells[i + 2, 3].Value = alunos[i].DataNasc.ToString("dd/MM/yyyy");
                 }
 
+                planilha.Cells[planilha.Dimension.Address].AutoFitColumns(0.9);
+
                 var file = new MemoryStream(pacote.GetAsByteArray());
 
                 return File(file, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "Alunos.xlsx");
             }
         }
+
+
     }
 
 }

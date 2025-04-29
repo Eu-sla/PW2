@@ -4,12 +4,12 @@
     ViewBag.Title = "Listar";
 }
 
-<h2>Listar</h2>
+<h2 class="mt-4 mb-4">Listar Alunos</h2>
 
 <p>
-    @Html.ActionLink("Cadastrar Novo", "Create", null, new { @class = "btn btn-primary" })
-    <a href="@Url.Action("BaixarPdf", "Aluno")" class="btn btn-danger">Baixar Lista em PDF</a>
-    <a href="@Url.Action("ExportarExcel", "Aluno")" class="btn btn-success">Baixar Lista em Excel</a>
+    @Html.ActionLink("Cadastrar Novo", "Create", null, new { @style = "background-color: #F58A6E; color: white;", @class = "btn" })
+    <a style="background-color: #E88396; color: white; " href="@Url.Action("BaixarPdf", "Aluno")" class="btn">Baixar Lista em PDF</a>
+    <a style="background-color: #D65C74; color: white;" href="@Url.Action("ExportarExcel", "Aluno")" class="btn">Baixar Lista em Excel</a>
 </p>
 
 <table id="tabelaAlunos" class="table table-bordered table-striped">
@@ -29,9 +29,9 @@
                 <td>@item.RA</td>
                 <td>@item.DataNasc.ToString("dd/MM/yyyy")</td>
                 <td>
-                    @Html.ActionLink("Editar", "Editar", new { id = item.Id }, new { @class = "btn btn-warning btn-sm" })
-                    @Html.ActionLink("Exibir", "Exibir", new { id = item.Id }, new { @class = "btn btn-info btn-sm" })
-                    @Html.ActionLink("Excluir", "Delete", new { id = item.Id }, new { @class = "btn btn-danger btn-sm" })
+                    @Html.ActionLink("Detalhes", "Exibir", new { id = item.Id }, new { @style = "background-color: #83B3D3; color: white;", @class = "btn btn-sm" }) |
+                    @Html.ActionLink("Editar", "Editar", new { id = item.Id }, new { @style = "background-color: #F0C75E; color: white;", @class = "btn btn-sm" }) |
+                    @Html.ActionLink("Deletar", "Delete", new { id = item.Id }, new { @style = "background-color: #D3666C; color: white;", @class = "btn btn-sm" })
                 </td>
             </tr>
         }

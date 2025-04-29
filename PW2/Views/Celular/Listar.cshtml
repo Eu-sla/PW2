@@ -4,43 +4,62 @@
     ViewBag.Title = "Listar";
 }
 
-<h2>Listar</h2>
+<h2 class="mt-4 mb-4">Listar Celulares</h2>
 
 <p>
-    @Html.ActionLink("Adicionar", "Create")
-    <a href="@Url.Action("BaixarPdf", "Celular")" class="btn btn-primary">Baixar Lista em PDF</a>
+    @Html.ActionLink("Adicionar Novo", "Create", null, new { @style = "background-color: #F58A6E; color: white;", @class = "btn" })
+    <a style="background-color: #E88396; color: white; " href="@Url.Action("BaixarPdf", "Celular")" class="btn ">Baixar Lista em PDF</a>
+    <a style="background-color: #D65C74; color: white;" href="@Url.Action("ExportarExcel", "Celular")" class="btn ">Baixar Lista em Excel</a>
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Numero)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Marca)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Novo)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Numero)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Marca)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Novo)
-        </td>
-        <td>
-            @Html.ActionLink("Editar", "Editar", new { id = Model.ToList<PW2.Models.Celular>().IndexOf(item) }) |
-            @Html.ActionLink("Detalhes", "Exibir", new { id = Model.ToList<PW2.Models.Celular>().IndexOf(item) }) |
-            @Html.ActionLink("Deletar ", "Delete", new { id = Model.ToList<PW2.Models.Celular>().IndexOf(item) })
-        </td>
-    </tr>
-}
-
+<table id="tabelaCelulares" class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Numero)</th>
+            <th>@Html.DisplayNameFor(model => model.Marca)</th>
+            <th>@Html.DisplayNameFor(model => model.Novo)</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Numero</td>
+                <td>@item.Marca</td>
+                <td>@item.Novo</td>
+                <td>
+                    @Html.ActionLink("Detalhes", "Exibir", new { id = item.Id }, new { @style = "background-color: #83B3D3; color: white;", @class = "btn btn-sm" }) |
+                    @Html.ActionLink("Editar", "Editar", new { id = item.Id }, new { @style = "background-color: #F0C75E; color: white;", @class = "btn btn-sm" }) |
+                    @Html.ActionLink("Deletar", "Delete", new { id = item.Id }, new { @style = "background-color: #D3666C; color: white;", @class = "btn btn-sm" })
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>
+
+@section Scripts {
+    <!-- DataTables CSS e JS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap4.min.css" />
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap4.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#tabelaCelulares').DataTable({
+                language: {
+                    search: "Pesquisar:",
+                    lengthMenu: "Mostrar _MENU_ registros por página",
+                    zeroRecords: "Nenhum celular encontrado",
+                    info: "Mostrando _PAGE_ de _PAGES_",
+                    infoEmpty: "Nenhum registro disponível",
+                    infoFiltered: "(filtrado de _MAX_ registros no total)",
+                    paginate: {
+                        previous: "Anterior",
+                        next: "Próximo"
+                    }
+                }
+            });
+        });
+    </script>
+}

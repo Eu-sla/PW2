@@ -4,11 +4,10 @@
     ViewBag.Title = "Exibir";
 }
 
-<h2>Exibir</h2>
+<h2>Detalhes</h2>
 
 <div>
-    <h4>Evento</h4>
-    <hr />
+    <hr/>
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.Local)
@@ -27,7 +26,8 @@
         </dd>
 
     </dl>
+    <div class="mt-1">
+        @Html.ActionLink("Editar", "Editar", new { Model.Id }, new { @style = "background-color: #F58A6E; color: white;", @class = "btn" })
+        @Html.ActionLink("Voltar", "Listar", null, new { @style = "background-color: #83B3D3; color: white;", @class = "btn" })
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Voltar", "Listar")
-</p>

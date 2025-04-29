@@ -4,7 +4,7 @@
     ViewBag.Title = "Editar";
 }
 
-<h2>Editar</h2>
+<h2>Editar Carro</h2>
 
 
 @using (Html.BeginForm())
@@ -12,7 +12,6 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Carro</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
@@ -26,7 +25,14 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Ano, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Ano, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextBoxFor(model => model.Ano, new
+                {
+                    @class = "form-control",
+                    type = "number",
+                    min = "1900",
+                    max = "2100",
+                    step = "1"
+                })
                 @Html.ValidationMessageFor(model => model.Ano, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -38,18 +44,15 @@
                 @Html.ValidationMessageFor(model => model.Cor, "", new { @class = "text-danger" })
             </div>
         </div>
-
-        <div class="form-group">
+         
+        <div class="form-group mt-2">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Salvar" class="btn btn-primary" />
+                <input style="background-color: #D65C74; color: white;" type="submit" value="Excluir" class="btn" />
+                @Html.ActionLink("Voltar", "Listar", null, new { @class = "btn", @style = "background-color: #F58A6E; color: white;" })
             </div>
         </div>
     </div>
 }
-
-<div>
-    @Html.ActionLink("Voltar", "Listar")
-</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

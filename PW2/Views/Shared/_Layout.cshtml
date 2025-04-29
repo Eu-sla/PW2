@@ -9,28 +9,32 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm" style="background-color: #F8A6B3; color: whitesmoke ">
         <div class="container">
-            @Html.ActionLink("App PW3  ", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="white" class="bi bi-house-fill" viewBox="0 0 16 16">
+                <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293z" />
+                <path d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293z" />
+            </svg>
+            @Html.ActionLink(" ", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Alternar a navegação" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
                 <ul class="navbar-nav flex-grow-1">
-                    <li>@Html.ActionLink("Página Inicial", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Página Inicial", "Index", "Home", new { area = "" }, new { @class = "nav-link", @style = "color: white;" })</li>
                     <!--<li>@Html.ActionLink("Sobre", "About", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Contato", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Alunos", "Index", "Aluno", new { area = "" }, new { @class = "nav-link" })</li>-->
-                    <li>@Html.ActionLink("Lista de Alunos", "Listar", "Aluno", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Lista de Carros", "Listar", "Carro", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Lista de Eventos", "Listar", "Eventos", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Lista de Celulares", "Listar", "Celular", new { area = "" }, new { @class = "nav-link" })</li>
+            <li>@Html.ActionLink("Contato", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+            <li>@Html.ActionLink("Alunos", "Index", "Aluno", new { area = "" }, new { @class = "nav-link" })</li>-->
+                    <li>@Html.ActionLink("Lista de Alunos", "Listar", "Aluno", new { area = "" }, new { @class = "nav-link" ,@style = "color: white;" })</li>
+                    <li> @Html.ActionLink("Lista de Carros", "Listar", "Carro", new { area = "" }, new { @class = "nav-link", @style = "color: white;" })</li>
+                    <li>@Html.ActionLink("Lista de Eventos", "Listar", "Eventos", new { area = "" }, new { @class = "nav-link", @style = "color: white;" })</li>
+                    <li>@Html.ActionLink("Lista de Celulares", "Listar", "Celular", new { area = "" }, new { @class = "nav-link", @style = "color: white;" })</li>
                 </ul>
             </div>
         </div>
     </nav>
-    <div class="container body-content">
+    <div class="container body-content" align="center">
         @RenderBody()
         <hr />
         <footer>
