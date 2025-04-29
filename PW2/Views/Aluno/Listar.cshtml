@@ -7,40 +7,59 @@
 <h2>Listar</h2>
 
 <p>
-    @Html.ActionLink("Cadastrar Novo", "Create")
-    <a href="@Url.Action("BaixarPdf", "Aluno")" class="btn btn-primary">Baixar Lista em PDF</a>
+    @Html.ActionLink("Cadastrar Novo", "Create", null, new { @class = "btn btn-primary" })
+    <a href="@Url.Action("BaixarPdf", "Aluno")" class="btn btn-danger">Baixar Lista em PDF</a>
+    <a href="@Url.Action("ExportarExcel", "Aluno")" class="btn btn-success">Baixar Lista em Excel</a>
 </p>
-<table class="table table-hover table-striped ">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Nome)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.RA)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DataNasc)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Nome)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.RA)
-        </td>
-        <td>
-            @item.DataNasc.ToString("dd/MM/yyyy")
-        </td>
-        <td>
-            @Html.ActionLink("Editar", "Editar", new { id = Model.ToList<PW2.Models.Aluno>().IndexOf(item) }) |
-            @Html.ActionLink("Exibir Detalhes", "Exibir", new {  id= Model.ToList<PW2.Models.Aluno>().IndexOf(item) }) |
-            @Html.ActionLink("Excluir", "Delete", new { id = Model.ToList<PW2.Models.Aluno>().IndexOf(item)  })
-        </td>
-    </tr>
-}
-
+<table id="tabelaAlunos" class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Nome)</th>
+            <th>@Html.DisplayNameFor(model => model.RA)</th>
+            <th>@Html.DisplayNameFor(model => model.DataNasc)</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Nome</td>
+                <td>@item.RA</td>
+                <td>@item.DataNasc.ToString("dd/MM/yyyy")</td>
+                <td>
+                    @Html.ActionLink("Editar", "Editar", new { id = item.Id }, new { @class = "btn btn-warning btn-sm" })
+                    @Html.ActionLink("Exibir", "Exibir", new { id = item.Id }, new { @class = "btn btn-info btn-sm" })
+                    @Html.ActionLink("Excluir", "Delete", new { id = item.Id }, new { @class = "btn btn-danger btn-sm" })
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>
+
+@section Scripts {
+    <!-- DataTables CSS e JS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap4.min.css" />
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap4.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#tabelaAlunos').DataTable({
+                language: {
+                    search: "Pesquisar:",
+                    lengthMenu: "Mostrar _MENU_ registros por página",
+                    zeroRecords: "Nenhum aluno encontrado",
+                    info: "Mostrando _PAGE_ de _PAGES_",
+                    infoEmpty: "Nenhum registro disponível",
+                    infoFiltered: "(filtrado de _MAX_ registros no total)",
+                    paginate: {
+                        previous: "Anterior",
+                        next: "Próximo"
+                    }
+                }
+            });
+        });
+    </script>
+}

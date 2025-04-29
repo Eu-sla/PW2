@@ -7,12 +7,18 @@ using PW2.Models;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System.IO;
+using OfficeOpenXml;
 
 namespace PW2.Controllers
 {
     public class AlunoController : Controller
     {
         // GET: Aluno
+        static AlunoController()
+        {
+            // Defina a licença correta. Aqui é para uso comercial
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+        }
         public ActionResult Index()
         {
             return View();
@@ -52,22 +58,31 @@ namespace PW2.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Editar(int id, Aluno aluno)
         {
-            aluno.Editar(Session, id);
+            if (ModelState.IsValid)
+            {
+                aluno.Editar(Session, id);
 
-            return RedirectToAction("Listar");
+                return RedirectToAction("Listar");
+            }
+            return View(aluno);
         }
 
         public ActionResult Create()
         {
+
             return View(new Aluno());
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(Aluno aluno)
         {
-            aluno.Adicionar(Session);
+            if (ModelState.IsValid)
+            {
+                aluno.Adicionar(Session);
 
-            return RedirectToAction("Listar");
+                return RedirectToAction("Listar");
+            }
+            return View(aluno);
         }
 
 
@@ -109,6 +124,37 @@ namespace PW2.Controllers
                 doc.Close();
 
                 return File(ms.ToArray(), "application/pdf", "ListaAlunos.pdf");
+            }
+        }
+
+        public ActionResult ExportarExcel()
+        {
+
+            var alunos = (List<Aluno>)Session["ListaAluno"];
+
+            if (alunos == null || alunos.Count == 0)
+            {
+                return Content("Não há alunos para exportar.");
+            }
+
+            using (var pacote = new ExcelPackage())
+            {
+                var planilha = pacote.Workbook.Worksheets.Add("Alunos");
+
+                planilha.Cells[1, 1].Value = "Nome";
+                planilha.Cells[1, 2].Value = "RA";
+                planilha.Cells[1, 3].Value = "Data de Nascimento";
+
+                for (int i = 0; i < alunos.Count; i++)
+                {
+                    planilha.Cells[i + 2, 1].Value = alunos[i].Nome;
+                    planilha.Cells[i + 2, 2].Value = alunos[i].RA;
+                    planilha.Cells[i + 2, 3].Value = alunos[i].DataNasc.ToString("dd/MM/yyyy");
+                }
+
+                var file = new MemoryStream(pacote.GetAsByteArray());
+
+                return File(file, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "Alunos.xlsx");
             }
         }
     }
